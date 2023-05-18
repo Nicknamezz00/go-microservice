@@ -1,0 +1,5 @@
+app:
+  name: ratings
+http:
+  mode: release
+  port: 0

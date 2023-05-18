@@ -1,0 +1,5 @@
+app:
+  name: reviews
+http:
+  mode: release
+  port: 0
