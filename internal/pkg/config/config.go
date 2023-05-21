@@ -23,19 +23,27 @@
  *
  */
 
-package main
+package config
 
 import (
-	"flag"
-	"log"
+	"fmt"
+	"github.com/google/wire"
+	"github.com/spf13/viper"
 )
 
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
+func New(path string) (*viper.Viper, error) {
+	var (
+		v   = viper.New()
+		err error
+	)
+	v.AddConfigPath(".")
+	v.SetConfigFile(string(path))
+	if err := v.ReadInConfig(); err != nil {
+		return nil, err
+	} else {
+		fmt.Printf("using config file -> %s\n", v.ConfigFileUsed())
+	}
+	return v, err
 }
+
+var ProviderSet = wire.NewSet(New)

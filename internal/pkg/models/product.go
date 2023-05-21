@@ -23,19 +23,10 @@
  *
  */
 
-package main
+package models
 
-import (
-	"flag"
-	"log"
-)
-
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
+type Product struct {
+	Detail *Detail   `json:"detail"`
+	Rating *Rating   `json:"rating"`
+	Review []*Review `json:"reviews"`
 }

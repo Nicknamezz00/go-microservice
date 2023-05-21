@@ -23,19 +23,13 @@
  *
  */
 
-package main
+package models
 
-import (
-	"flag"
-	"log"
-)
+import "time"
 
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
+type Detail struct {
+	ID          uint64    `json:"id"`
+	Name        string    `json:"name"`
+	Price       float32   `json:"price"`
+	CreatedTime time.Time `json:"created_time"`
 }

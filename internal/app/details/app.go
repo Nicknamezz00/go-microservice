@@ -23,19 +23,29 @@
  *
  */
 
-package main
+package details
 
 import (
-	"flag"
-	"log"
+	"github.com/pkg/errors"
+	"github.com/spf13/viper"
+	"go.uber.org/zap"
+	"net/http"
 )
 
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
+type Options struct {
+	Name string
+}
 
-func main() {
-	log.Println("Product App")
+func NewOptions(v *viper.Viper, logger *zap.Logger) (*Options, error) {
+	var err error
+	o := new(Options)
+	if err = v.UnmarshalKey("app", o); err != nil {
+		return nil, errors.Wrap(err, "unmarshall detail option error")
+	}
+	logger.Info("detail options success loaded")
+	return o, err
+}
 
-	flag.Parse()
-
-	//app, err :=
+func NewApp(o *Options, logger *zap.Logger, httpSrv *http.Server, grpcSrv *grpc.Server) {
+	
 }

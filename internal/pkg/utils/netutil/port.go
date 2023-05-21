@@ -23,19 +23,14 @@
  *
  */
 
-package main
+package netutil
 
-import (
-	"flag"
-	"log"
-)
+import "net"
 
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
+// GetAvailablePort returns a port at random
+func GetAvailablePort() int {
+	l, _ := net.Listen("tcp", ":0") // listen on localhost
+	defer l.Close()
+	port := l.Addr().(*net.TCPAddr).Port
+	return port
 }

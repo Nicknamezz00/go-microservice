@@ -23,19 +23,4 @@
  *
  */
 
-package main
-
-import (
-	"flag"
-	"log"
-)
-
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
-}
+package models

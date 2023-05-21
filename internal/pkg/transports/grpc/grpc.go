@@ -23,19 +23,8 @@
  *
  */
 
-package main
+package grpc
 
-import (
-	"flag"
-	"log"
-)
+import "github.com/google/wire"
 
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
-}
+var ProviderSet = wire.NewSet(NewServerOptions, NewServer, NewClientOptions, NewClient)

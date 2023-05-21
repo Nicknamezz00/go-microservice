@@ -23,19 +23,38 @@
  *
  */
 
-package main
+package consul
 
 import (
-	"flag"
-	"log"
+	"github.com/google/wire"
+	consulapi "github.com/hashicorp/consul/api"
+	"github.com/pkg/errors"
+	"github.com/spf13/viper"
 )
 
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
+type Options struct {
+	Addr string
 }
+
+func NewOptions(v *viper.Viper) (*Options, error) {
+	var (
+		err error
+		o   = new(Options)
+	)
+	if err = v.UnmarshalKey("consul", o); err != nil {
+		return nil, errors.Wrap(err, "consul unmarshal error")
+	}
+	return o, nil
+}
+
+func New(o *Options) (*consulapi.Client, error) {
+	cc, err := consulapi.NewClient(&consulapi.Config{
+		Address: o.Addr,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "new consul client error")
+	}
+	return cc, nil
+}
+
+var ProviderSet = wire.NewSet(New, NewOptions)

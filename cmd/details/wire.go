@@ -1,3 +1,5 @@
+//go:build wireinject
+
 /*
  * MIT License
  *
@@ -26,16 +28,11 @@
 package main
 
 import (
-	"flag"
-	"log"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/config"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/log"
 )
 
-var configFile = flag.String("f", "products.yml", "config file which viper loads")
-
-func main() {
-	log.Println("Product App")
-
-	flag.Parse()
-
-	//app, err :=
-}
+var providerSet = wire.NewSet(
+	log.ProviderSet,
+	config.ProviderSet,
+)
