@@ -1,3 +1,6 @@
+//go:build wireinject
+// +build wireinject
+
 /*
  * MIT License
  *
@@ -23,38 +26,21 @@
  *
  */
 
-package details
+package main
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/config"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/consul"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/log"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
 	"github.com/google/wire"
-	"github.com/pkg/errors"
-	"github.com/spf13/viper"
-	"go.uber.org/zap"
 )
 
-type Options struct {
-	Name string
-}
-
-func NewOptions(v *viper.Viper, logger *zap.Logger) (*Options, error) {
-	var err error
-	o := new(Options)
-	if err = v.UnmarshalKey("app", o); err != nil {
-		return nil, errors.Wrap(err, "unmarshall detail option error")
-	}
-	logger.Info("detail options success loaded")
-	return o, err
-}
-
-func NewApp(o *Options, logger *zap.Logger, hs *http.Server, gs *grpc.Server) (*app.Application, error) {
-	a, err := app.NewApplication(o.Name, logger, app.HttpServerOption(hs), app.GrpcServerOption(gs))
-	if err != nil {
-		return nil, errors.Wrap(err, "new detail application error")
-	}
-	return a, nil
-}
-
-var ProviderSet = wire.NewSet(NewApp, NewOptions)
+var providerSet = wire.NewSet(
+	log.ProviderSet,
+	config.ProviderSet,
+	consul.ProviderSet,
+	http.ProviderSet,
+	grpc.ProviderSet,
+)

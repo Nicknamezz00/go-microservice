@@ -23,38 +23,55 @@
  *
  */
 
-package details
+package database
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
 	"github.com/google/wire"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
+// Options configurable options for database
 type Options struct {
-	Name string
+	URL   string `yaml:"url"`
+	Debug bool
 }
 
 func NewOptions(v *viper.Viper, logger *zap.Logger) (*Options, error) {
-	var err error
-	o := new(Options)
-	if err = v.UnmarshalKey("app", o); err != nil {
-		return nil, errors.Wrap(err, "unmarshall detail option error")
+	var (
+		err error
+		o   = new(Options)
+	)
+	if err = v.UnmarshalKey("db", o); err != nil {
+		return nil, errors.Wrap(err, "unmarshal db option error")
 	}
-	logger.Info("detail options success loaded")
+	logger.Info("load database options success", zap.String("url", o.URL))
 	return o, err
 }
 
-func NewApp(o *Options, logger *zap.Logger, hs *http.Server, gs *grpc.Server) (*app.Application, error) {
-	a, err := app.NewApplication(o.Name, logger, app.HttpServerOption(hs), app.GrpcServerOption(gs))
+func NewDatabase(o *Options) (*gorm.DB, error) {
+	db, err := gorm.Open(mysql.New(mysql.Config{
+		DSN:                       o.URL,
+		DefaultStringSize:         256,
+		DisableDatetimePrecision:  true,
+		DontSupportRenameIndex:    true,
+		DontSupportRenameColumn:   true,
+		SkipInitializeWithVersion: false,
+	}), &gorm.Config{})
 	if err != nil {
-		return nil, errors.Wrap(err, "new detail application error")
+		return nil, errors.Wrap(err, "gorm open database error")
 	}
-	return a, nil
+	if o.Debug {
+		db = db.Debug()
+	}
+	db.AutoMigrate(&models.Detail{})
+	db.AutoMigrate(&models.Rating{})
+	db.AutoMigrate(&models.Review{})
+	return db, nil
 }
 
-var ProviderSet = wire.NewSet(NewApp, NewOptions)
+var ProviderSet = wire.NewSet(NewDatabase, NewOptions)

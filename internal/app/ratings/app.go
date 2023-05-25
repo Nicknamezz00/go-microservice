@@ -23,7 +23,7 @@
  *
  */
 
-package details
+package ratings
 
 import (
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
@@ -43,16 +43,16 @@ func NewOptions(v *viper.Viper, logger *zap.Logger) (*Options, error) {
 	var err error
 	o := new(Options)
 	if err = v.UnmarshalKey("app", o); err != nil {
-		return nil, errors.Wrap(err, "unmarshall detail option error")
+		return nil, errors.Wrap(err, "unmarshall rating option error")
 	}
-	logger.Info("detail options success loaded")
+	logger.Info("rating options success loaded")
 	return o, err
 }
 
 func NewApp(o *Options, logger *zap.Logger, hs *http.Server, gs *grpc.Server) (*app.Application, error) {
 	a, err := app.NewApplication(o.Name, logger, app.HttpServerOption(hs), app.GrpcServerOption(gs))
 	if err != nil {
-		return nil, errors.Wrap(err, "new detail application error")
+		return nil, errors.Wrap(err, "new rating application error")
 	}
 	return a, nil
 }

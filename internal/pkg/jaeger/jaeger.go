@@ -23,38 +23,37 @@
  *
  */
 
-package details
+package jaeger
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
 	"github.com/google/wire"
+	"github.com/opentracing/opentracing-go"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
+	"github.com/uber/jaeger-client-go/config"
+	"github.com/uber/jaeger-lib/metrics/prometheus"
 	"go.uber.org/zap"
 )
 
-type Options struct {
-	Name string
-}
-
-func NewOptions(v *viper.Viper, logger *zap.Logger) (*Options, error) {
-	var err error
-	o := new(Options)
-	if err = v.UnmarshalKey("app", o); err != nil {
-		return nil, errors.Wrap(err, "unmarshall detail option error")
+func NewConfiguration(v *viper.Viper, logger *zap.Logger) (*config.Configuration, error) {
+	var (
+		err error
+		c   = new(config.Configuration)
+	)
+	if err = v.UnmarshalKey("jaeger", c); err != nil {
+		return nil, errors.Wrap(err, "unmarshal jaeger configuration error")
 	}
-	logger.Info("detail options success loaded")
-	return o, err
+	logger.Info("load jaeger configuration succuess")
+	return c, nil
 }
 
-func NewApp(o *Options, logger *zap.Logger, hs *http.Server, gs *grpc.Server) (*app.Application, error) {
-	a, err := app.NewApplication(o.Name, logger, app.HttpServerOption(hs), app.GrpcServerOption(gs))
+func NewJaeger(c *config.Configuration) (opentracing.Tracer, error) {
+	metricsFactory := prometheus.New()
+	tracer, _, err := c.NewTracer(config.Metrics(metricsFactory))
 	if err != nil {
-		return nil, errors.Wrap(err, "new detail application error")
+		return nil, errors.Wrap(err, "new jaeger tracer error")
 	}
-	return a, nil
+	return tracer, nil
 }
 
-var ProviderSet = wire.NewSet(NewApp, NewOptions)
+var ProviderSet = wire.NewSet(NewJaeger, NewConfiguration)

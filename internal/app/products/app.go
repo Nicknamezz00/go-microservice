@@ -23,11 +23,10 @@
  *
  */
 
-package details
+package products
 
 import (
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
 	"github.com/google/wire"
 	"github.com/pkg/errors"
@@ -43,16 +42,16 @@ func NewOptions(v *viper.Viper, logger *zap.Logger) (*Options, error) {
 	var err error
 	o := new(Options)
 	if err = v.UnmarshalKey("app", o); err != nil {
-		return nil, errors.Wrap(err, "unmarshall detail option error")
+		return nil, errors.Wrap(err, "unmarshall products option error")
 	}
-	logger.Info("detail options success loaded")
+	logger.Info("reviews products success loaded")
 	return o, err
 }
 
-func NewApp(o *Options, logger *zap.Logger, hs *http.Server, gs *grpc.Server) (*app.Application, error) {
-	a, err := app.NewApplication(o.Name, logger, app.HttpServerOption(hs), app.GrpcServerOption(gs))
+func NewApp(o *Options, logger *zap.Logger, hs *http.Server) (*app.Application, error) {
+	a, err := app.NewApplication(o.Name, logger, app.HttpServerOption(hs))
 	if err != nil {
-		return nil, errors.Wrap(err, "new detail application error")
+		return nil, errors.Wrap(err, "new products application error")
 	}
 	return a, nil
 }

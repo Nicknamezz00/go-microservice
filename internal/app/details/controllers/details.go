@@ -23,38 +23,57 @@
  *
  */
 
-package details
+package controllers
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
-	"github.com/google/wire"
+	"net/http"
+	"strconv"
+
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
 	"github.com/pkg/errors"
-	"github.com/spf13/viper"
+
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/repositories"
+
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 
-type Options struct {
-	Name string
+type DetailsController struct {
+	logger  *zap.Logger
+	service services.DetailsService
 }
 
-func NewOptions(v *viper.Viper, logger *zap.Logger) (*Options, error) {
-	var err error
-	o := new(Options)
-	if err = v.UnmarshalKey("app", o); err != nil {
-		return nil, errors.Wrap(err, "unmarshall detail option error")
+func NewDetailsController(logger *zap.Logger, s services.DetailsService) *DetailsController {
+	return &DetailsController{
+		logger:  logger,
+		service: s,
 	}
-	logger.Info("detail options success loaded")
-	return o, err
 }
 
-func NewApp(o *Options, logger *zap.Logger, hs *http.Server, gs *grpc.Server) (*app.Application, error) {
-	a, err := app.NewApplication(o.Name, logger, app.HttpServerOption(hs), app.GrpcServerOption(gs))
+func (dc *DetailsController) Get(c *gin.Context) {
+	ID, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
-		return nil, errors.Wrap(err, "new detail application error")
+		_ = c.AbortWithError(http.StatusBadRequest, err)
+		return
 	}
-	return a, nil
+	d, err := dc.service.Get(ID)
+	if err != nil {
+		dc.logger.Error("get detail by id error", zap.Error(err))
+		c.String(http.StatusInternalServerError, "%+v", err)
+		return
+	}
+	c.JSON(http.StatusOK, d)
 }
 
-var ProviderSet = wire.NewSet(NewApp, NewOptions)
+type DefaultDetailsService struct {
+	logger     *zap.Logger
+	Repository repositories.DetailsRepository
+}
+
+func (s *DefaultDetailsService) Get(ID uint64) (p *models.Detail, err error) {
+	if p, err = s.Repository.Get(ID); err != nil {
+		return nil, errors.Wrap(err, "detail service get detail error")
+	}
+	return
+}
