@@ -47,7 +47,7 @@ func NewOptions(v *viper.Viper) (*Options, error) {
 	return o, nil
 }
 
-func New(o *Options) (*consulapi.Client, error) {
+func NewConsulClient(o *Options) (*consulapi.Client, error) {
 	cc, err := consulapi.NewClient(&consulapi.Config{
 		Address: o.Addr,
 	})
@@ -57,4 +57,4 @@ func New(o *Options) (*consulapi.Client, error) {
 	return cc, nil
 }
 
-var ProviderSet = wire.NewSet(New, NewOptions)
+var ProviderSet = wire.NewSet(NewConsulClient, NewOptions)

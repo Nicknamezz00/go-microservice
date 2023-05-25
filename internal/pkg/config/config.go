@@ -27,11 +27,12 @@ package config
 
 import (
 	"fmt"
+
 	"github.com/google/wire"
 	"github.com/spf13/viper"
 )
 
-func New(path string) (*viper.Viper, error) {
+func NewViper(path string) (*viper.Viper, error) {
 	var (
 		v   = viper.New()
 		err error
@@ -46,4 +47,4 @@ func New(path string) (*viper.Viper, error) {
 	return v, err
 }
 
-var ProviderSet = wire.NewSet(New)
+var ProviderSet = wire.NewSet(NewViper)

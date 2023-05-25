@@ -166,7 +166,7 @@ func (s *Server) deregister() error {
 		id := fmt.Sprintf("%s[%s:%d]", key, s.host, s.port)
 		err := s.consulCli.Agent().ServiceDeregister(id)
 		if err != nil {
-			return errors.Wrapf(err, "deregister service error with [id = %s]", id)
+			return errors.Wrapf(err, "deregister grpc service error with [id = %s]", id)
 		}
 		s.logger.Info("deregister service success ", zap.String("id", id))
 	}
