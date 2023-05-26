@@ -4,9 +4,13 @@
 package proto
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -146,4 +150,84 @@ var fileDescriptor_c457112169d4fb2c = []byte{
 	0xc2, 0xea, 0x40, 0x8c, 0x68, 0x2f, 0xc4, 0x9b, 0xda, 0x96, 0xc1, 0x4b, 0xfd, 0xb6, 0x2e, 0x1f,
 	0x37, 0x73, 0x79, 0xfa, 0x09, 0x00, 0x00, 0xff, 0xff, 0xab, 0xf8, 0x3a, 0x65, 0x18, 0x01, 0x00,
 	0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// DetailsClient is the client API for Details service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type DetailsClient interface {
+	Get(ctx context.Context, in *GetDetailsRequest, opts ...grpc.CallOption) (*Detail, error)
+}
+
+type detailsClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewDetailsClient(cc *grpc.ClientConn) DetailsClient {
+	return &detailsClient{cc}
+}
+
+func (c *detailsClient) Get(ctx context.Context, in *GetDetailsRequest, opts ...grpc.CallOption) (*Detail, error) {
+	out := new(Detail)
+	err := c.cc.Invoke(ctx, "/Details/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// DetailsServer is the server API for Details service.
+type DetailsServer interface {
+	Get(context.Context, *GetDetailsRequest) (*Detail, error)
+}
+
+// UnimplementedDetailsServer can be embedded to have forward compatible implementations.
+type UnimplementedDetailsServer struct {
+}
+
+func (*UnimplementedDetailsServer) Get(ctx context.Context, req *GetDetailsRequest) (*Detail, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+
+func RegisterDetailsServer(s *grpc.Server, srv DetailsServer) {
+	s.RegisterService(&_Details_serviceDesc, srv)
+}
+
+func _Details_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DetailsServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Details/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DetailsServer).Get(ctx, req.(*GetDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Details_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "Details",
+	HandlerType: (*DetailsServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Get",
+			Handler:    _Details_Get_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "details.proto",
 }

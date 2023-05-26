@@ -23,35 +23,24 @@
  *
  */
 
-package repositories
+package controllers
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
-	"github.com/pkg/errors"
-	"go.uber.org/zap"
-	"gorm.io/gorm"
+	"flag"
+	"testing"
+
+	"github.com/gin-gonic/gin"
 )
 
-type DetailsRepository interface {
-	Get(ID uint64) (p *models.Detail, err error)
+var r *gin.Engine
+var configFile = flag.String("f", "details.yml", "config file which viper loads")
+
+func setup() {
+	r = gin.New()
 }
 
-type MySQLDetailsRepository struct {
-	logger *zap.Logger
-	db     *gorm.DB
-}
+func TestDetailsController_Get(t *testing.T) {
+	flag.Parse()
+	setup()
 
-func NewMySQLDetailsRepository(logger *zap.Logger, db *gorm.DB) DetailsRepository {
-	return &MySQLDetailsRepository{
-		logger: logger.With(zap.String("type", "DetailsRepository")),
-		db:     db,
-	}
-}
-
-func (s *MySQLDetailsRepository) Get(ID uint64) (d *models.Detail, err error) {
-	d = new(models.Detail)
-	if err = s.db.Model(d).Where("id = ?", ID).First(d).Error; err != nil {
-		return nil, errors.Wrapf(err, "get detail error[id = %d]", ID)
-	}
-	return
 }

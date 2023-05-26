@@ -4,9 +4,13 @@
 package proto
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -188,4 +192,84 @@ var fileDescriptor_5b2a6bc9211d2c89 = []byte{
 	0x77, 0x40, 0x47, 0x0d, 0x76, 0x0d, 0x8b, 0x41, 0x8b, 0xad, 0xc5, 0xc4, 0x4d, 0xb2, 0x73, 0x31,
 	0x25, 0x7d, 0x4f, 0x9f, 0x17, 0x81, 0xb1, 0x1c, 0x9e, 0xed, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff,
 	0x5a, 0x3e, 0x19, 0x05, 0x83, 0x01, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// ReviewsClient is the client API for Reviews service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ReviewsClient interface {
+	Query(ctx context.Context, in *QueryReviewsRequest, opts ...grpc.CallOption) (*QueryReviewsResponse, error)
+}
+
+type reviewsClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewReviewsClient(cc *grpc.ClientConn) ReviewsClient {
+	return &reviewsClient{cc}
+}
+
+func (c *reviewsClient) Query(ctx context.Context, in *QueryReviewsRequest, opts ...grpc.CallOption) (*QueryReviewsResponse, error) {
+	out := new(QueryReviewsResponse)
+	err := c.cc.Invoke(ctx, "/Reviews/Query", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ReviewsServer is the server API for Reviews service.
+type ReviewsServer interface {
+	Query(context.Context, *QueryReviewsRequest) (*QueryReviewsResponse, error)
+}
+
+// UnimplementedReviewsServer can be embedded to have forward compatible implementations.
+type UnimplementedReviewsServer struct {
+}
+
+func (*UnimplementedReviewsServer) Query(ctx context.Context, req *QueryReviewsRequest) (*QueryReviewsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Query not implemented")
+}
+
+func RegisterReviewsServer(s *grpc.Server, srv ReviewsServer) {
+	s.RegisterService(&_Reviews_serviceDesc, srv)
+}
+
+func _Reviews_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryReviewsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewsServer).Query(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Reviews/Query",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewsServer).Query(ctx, req.(*QueryReviewsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Reviews_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "Reviews",
+	HandlerType: (*ReviewsServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Query",
+			Handler:    _Reviews_Query_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "reviews.proto",
 }

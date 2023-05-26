@@ -23,35 +23,19 @@
  *
  */
 
-package repositories
+package grpc
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
-	"github.com/pkg/errors"
-	"go.uber.org/zap"
-	"gorm.io/gorm"
+	"github.com/Nicknamezz00/go-microservice/api/proto"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
+	"github.com/google/wire"
+	stdgrpc "google.golang.org/grpc"
 )
 
-type DetailsRepository interface {
-	Get(ID uint64) (p *models.Detail, err error)
-}
-
-type MySQLDetailsRepository struct {
-	logger *zap.Logger
-	db     *gorm.DB
-}
-
-func NewMySQLDetailsRepository(logger *zap.Logger, db *gorm.DB) DetailsRepository {
-	return &MySQLDetailsRepository{
-		logger: logger.With(zap.String("type", "DetailsRepository")),
-		db:     db,
+func CreateInitServers(ds *DetailsServer) grpc.InitServers {
+	return func(s *stdgrpc.Server) {
+		proto.RegisterDetailsServer(s, ds)
 	}
 }
 
-func (s *MySQLDetailsRepository) Get(ID uint64) (d *models.Detail, err error) {
-	d = new(models.Detail)
-	if err = s.db.Model(d).Where("id = ?", ID).First(d).Error; err != nil {
-		return nil, errors.Wrapf(err, "get detail error[id = %d]", ID)
-	}
-	return
-}
+var ProviderSet = wire.NewSet(NewDetailsServer, CreateInitServers)

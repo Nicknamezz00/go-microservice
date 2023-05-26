@@ -1,3 +1,5 @@
+// +build wireinject
+
 /*
  * MIT License
  *
@@ -26,32 +28,19 @@
 package repositories
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
-	"github.com/pkg/errors"
-	"go.uber.org/zap"
-	"gorm.io/gorm"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/config"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/database"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/log"
+	"github.com/google/wire"
 )
 
-type DetailsRepository interface {
-	Get(ID uint64) (p *models.Detail, err error)
-}
+var testProviderSet = wire.NewSet(
+	log.ProviderSet,
+	config.ProviderSet,
+	database.ProviderSet,
+	ProviderSet,
+)
 
-type MySQLDetailsRepository struct {
-	logger *zap.Logger
-	db     *gorm.DB
-}
-
-func NewMySQLDetailsRepository(logger *zap.Logger, db *gorm.DB) DetailsRepository {
-	return &MySQLDetailsRepository{
-		logger: logger.With(zap.String("type", "DetailsRepository")),
-		db:     db,
-	}
-}
-
-func (s *MySQLDetailsRepository) Get(ID uint64) (d *models.Detail, err error) {
-	d = new(models.Detail)
-	if err = s.db.Model(d).Where("id = ?", ID).First(d).Error; err != nil {
-		return nil, errors.Wrapf(err, "get detail error[id = %d]", ID)
-	}
-	return
+func CreateDetailsRepository(f string) (DetailsRepository, error) {
+	panic(wire.Build(testProviderSet))
 }

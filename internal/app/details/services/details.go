@@ -26,9 +26,31 @@
 package services
 
 import (
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/repositories"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
+	"github.com/pkg/errors"
+	"go.uber.org/zap"
 )
 
 type DetailsService interface {
 	Get(ID uint64) (*models.Detail, error)
+}
+
+type DefaultDetailsService struct {
+	logger     *zap.Logger
+	Repository repositories.DetailsRepository
+}
+
+func NewDetailsService(logger *zap.Logger, repo repositories.DetailsRepository) DetailsService {
+	return &DefaultDetailsService{
+		logger:     logger.With(zap.String("type", "DefaultDetailsService")),
+		Repository: repo,
+	}
+}
+
+func (s *DefaultDetailsService) Get(ID uint64) (d *models.Detail, err error) {
+	if d, err = s.Repository.Get(ID); err != nil {
+		return nil, errors.Wrap(err, "default details service get error")
+	}
+	return
 }

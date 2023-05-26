@@ -23,35 +23,44 @@
  *
  */
 
-package repositories
+package grpc
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
+	"context"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
+
 	"github.com/pkg/errors"
+
+	"github.com/Nicknamezz00/go-microservice/api/proto"
+
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
 	"go.uber.org/zap"
-	"gorm.io/gorm"
 )
 
-type DetailsRepository interface {
-	Get(ID uint64) (p *models.Detail, err error)
+type DetailsServer struct {
+	logger  *zap.Logger
+	service services.DetailsService
 }
 
-type MySQLDetailsRepository struct {
-	logger *zap.Logger
-	db     *gorm.DB
+func NewDetailsServer(logger *zap.Logger, s services.DetailsService) (*DetailsServer, error) {
+	return &DetailsServer{
+		logger:  logger,
+		service: s,
+	}, nil
 }
 
-func NewMySQLDetailsRepository(logger *zap.Logger, db *gorm.DB) DetailsRepository {
-	return &MySQLDetailsRepository{
-		logger: logger.With(zap.String("type", "DetailsRepository")),
-		db:     db,
+func (s *DetailsServer) Get(ctx context.Context, req *proto.GetDetailsRequest) (*proto.Detail, error) {
+	v, err := s.service.Get(req.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, "details grpc server get error")
 	}
-}
-
-func (s *MySQLDetailsRepository) Get(ID uint64) (d *models.Detail, err error) {
-	d = new(models.Detail)
-	if err = s.db.Model(d).Where("id = ?", ID).First(d).Error; err != nil {
-		return nil, errors.Wrapf(err, "get detail error[id = %d]", ID)
+	createTime := timestamppb.New(v.CreatedTime)
+	resp := &proto.Detail{
+		Id:          uint64(v.ID),
+		Name:        v.Name,
+		Price:       v.Price,
+		CreatedTime: createTime,
 	}
-	return
+	return resp, nil
 }

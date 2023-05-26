@@ -4,9 +4,13 @@
 package proto
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -146,4 +150,84 @@ var fileDescriptor_bf07e2fe2aafa921 = []byte{
 	0xa9, 0x25, 0x42, 0x42, 0x7a, 0x18, 0x1e, 0x92, 0x62, 0xd7, 0x83, 0x08, 0x38, 0xb1, 0x47, 0xb1,
 	0x42, 0x4c, 0x64, 0x03, 0x53, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x4f, 0xf3, 0x68, 0x67,
 	0x30, 0x01, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// RatingsClient is the client API for Ratings service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type RatingsClient interface {
+	Get(ctx context.Context, in *GetRatingsRequest, opts ...grpc.CallOption) (*Rating, error)
+}
+
+type ratingsClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewRatingsClient(cc *grpc.ClientConn) RatingsClient {
+	return &ratingsClient{cc}
+}
+
+func (c *ratingsClient) Get(ctx context.Context, in *GetRatingsRequest, opts ...grpc.CallOption) (*Rating, error) {
+	out := new(Rating)
+	err := c.cc.Invoke(ctx, "/Ratings/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// RatingsServer is the server API for Ratings service.
+type RatingsServer interface {
+	Get(context.Context, *GetRatingsRequest) (*Rating, error)
+}
+
+// UnimplementedRatingsServer can be embedded to have forward compatible implementations.
+type UnimplementedRatingsServer struct {
+}
+
+func (*UnimplementedRatingsServer) Get(ctx context.Context, req *GetRatingsRequest) (*Rating, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+
+func RegisterRatingsServer(s *grpc.Server, srv RatingsServer) {
+	s.RegisterService(&_Ratings_serviceDesc, srv)
+}
+
+func _Ratings_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRatingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RatingsServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Ratings/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RatingsServer).Get(ctx, req.(*GetRatingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Ratings_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "Ratings",
+	HandlerType: (*RatingsServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Get",
+			Handler:    _Ratings_Get_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "ratings.proto",
 }

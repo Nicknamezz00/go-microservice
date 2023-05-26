@@ -26,32 +26,41 @@
 package repositories
 
 import (
-	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
-	"github.com/pkg/errors"
-	"go.uber.org/zap"
-	"gorm.io/gorm"
+	"flag"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-type DetailsRepository interface {
-	Get(ID uint64) (p *models.Detail, err error)
-}
+var configFile = flag.String("f", "../../../../configs/details.yml", "set config file which viper will loading.")
 
-type MySQLDetailsRepository struct {
-	logger *zap.Logger
-	db     *gorm.DB
-}
+func TestDetailsRepository_Get(t *testing.T) {
+	flag.Parse()
 
-func NewMySQLDetailsRepository(logger *zap.Logger, db *gorm.DB) DetailsRepository {
-	return &MySQLDetailsRepository{
-		logger: logger.With(zap.String("type", "DetailsRepository")),
-		db:     db,
+	sto, err := CreateDetailsRepository(*configFile)
+	if err != nil {
+		t.Fatalf("create product Repository error,%+v", err)
 	}
-}
 
-func (s *MySQLDetailsRepository) Get(ID uint64) (d *models.Detail, err error) {
-	d = new(models.Detail)
-	if err = s.db.Model(d).Where("id = ?", ID).First(d).Error; err != nil {
-		return nil, errors.Wrapf(err, "get detail error[id = %d]", ID)
+	tests := []struct {
+		name     string
+		id       uint64
+		expected bool
+	}{
+		{"id=1", 1, true},
+		{"id=2", 2, true},
+		{"id=3", 3, true},
 	}
-	return
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			_, err := sto.Get(test.id)
+
+			if test.expected {
+				assert.NoError(t, err)
+			} else {
+				assert.Error(t, err)
+			}
+		})
+	}
 }

@@ -26,10 +26,11 @@
 package app
 
 import (
-	"github.com/google/wire"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/google/wire"
 
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
