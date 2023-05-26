@@ -26,11 +26,12 @@
 package controllers
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/Nicknamezz00/go-microservice/internal/app/ratings/services"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-	"net/http"
-	"strconv"
 )
 
 type RatingsController struct {
@@ -50,7 +51,7 @@ func (rc *RatingsController) Get(c *gin.Context) {
 	}
 	r, err := rc.service.Get(id)
 	if err != nil {
-		rc.logger.Error("get rating by product_id error", zap.Error(err))
+		rc.logger.Error("ratings controller get rating by product_id error", zap.Error(err))
 		c.String(http.StatusInternalServerError, "%+v", err)
 		return
 	}

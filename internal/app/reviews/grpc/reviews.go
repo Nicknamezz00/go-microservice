@@ -23,40 +23,47 @@
  *
  */
 
-package controllers
+package grpc
 
 import (
-	"net/http"
-	"strconv"
+	"context"
+	"github.com/pkg/errors"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
-	"github.com/gin-gonic/gin"
+	"github.com/Nicknamezz00/go-microservice/api/proto"
+	"github.com/Nicknamezz00/go-microservice/internal/app/reviews/services"
 	"go.uber.org/zap"
 )
 
-type DetailsController struct {
+type ReviewsServer struct {
 	logger  *zap.Logger
-	service services.DetailsService
+	service services.ReviewsService
 }
 
-func NewDetailsController(logger *zap.Logger, s services.DetailsService) *DetailsController {
-	return &DetailsController{
+func NewReviewsServer(logger *zap.Logger, service services.ReviewsService) (*ReviewsServer, error) {
+	return &ReviewsServer{
 		logger:  logger,
-		service: s,
-	}
+		service: service,
+	}, nil
 }
 
-func (dc *DetailsController) Get(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+func (s *ReviewsServer) Query(ctx context.Context, req *proto.QueryReviewsRequest) (*proto.QueryReviewsResponse, error) {
+	reviews, err := s.service.Query(req.ProductID)
 	if err != nil {
-		_ = c.AbortWithError(http.StatusBadRequest, err)
-		return
+		return nil, errors.Wrap(err, "reviews grpc server query reviews error")
 	}
-	d, err := dc.service.Get(id)
-	if err != nil {
-		dc.logger.Error("details controller get detail by id error", zap.Error(err))
-		c.String(http.StatusInternalServerError, "%+v", err)
-		return
+	resp := &proto.QueryReviewsResponse{
+		Reviews: make([]*proto.Review, 0, len(reviews)),
 	}
-	c.JSON(http.StatusOK, d)
+	for _, review := range reviews {
+		createdTime := timestamppb.New(review.CreatedTime)
+		r := &proto.Review{
+			Id:          uint64(review.ID),
+			ProductID:   review.ProductID,
+			Message:     review.Message,
+			CreatedTime: createdTime,
+		}
+		resp.Reviews = append(resp.Reviews, r)
+	}
+	return resp, nil
 }

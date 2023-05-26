@@ -23,40 +23,34 @@
  *
  */
 
-package controllers
+package services
 
 import (
-	"net/http"
-	"strconv"
-
-	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
-	"github.com/gin-gonic/gin"
+	"github.com/Nicknamezz00/go-microservice/internal/app/reviews/repositories"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
 
-type DetailsController struct {
-	logger  *zap.Logger
-	service services.DetailsService
+type ReviewsService interface {
+	Query(productID uint64) ([]*models.Review, error)
 }
 
-func NewDetailsController(logger *zap.Logger, s services.DetailsService) *DetailsController {
-	return &DetailsController{
-		logger:  logger,
-		service: s,
+type DefaultReviewsService struct {
+	logger     *zap.Logger
+	Repository repositories.ReviewsRepository
+}
+
+func NewReviewsService(logger *zap.Logger, repository repositories.ReviewsRepository) ReviewsService {
+	return &DefaultReviewsService{
+		logger:     logger.With(zap.String("type", "DefaultReviewsService")),
+		Repository: repository,
 	}
 }
 
-func (dc *DetailsController) Get(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
-	if err != nil {
-		_ = c.AbortWithError(http.StatusBadRequest, err)
-		return
+func (s *DefaultReviewsService) Query(productID uint64) (reviews []*models.Review, err error) {
+	if reviews, err = s.Repository.Query(productID); err != nil {
+		return nil, errors.Wrap(err, "query reviews error")
 	}
-	d, err := dc.service.Get(id)
-	if err != nil {
-		dc.logger.Error("details controller get detail by id error", zap.Error(err))
-		c.String(http.StatusInternalServerError, "%+v", err)
-		return
-	}
-	c.JSON(http.StatusOK, d)
+	return
 }

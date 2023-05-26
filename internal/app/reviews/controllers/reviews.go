@@ -26,37 +26,33 @@
 package controllers
 
 import (
-	"net/http"
-	"strconv"
-
-	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
+	"github.com/Nicknamezz00/go-microservice/internal/app/reviews/services"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"net/http"
+	"strconv"
 )
 
-type DetailsController struct {
+type ReviewsController struct {
 	logger  *zap.Logger
-	service services.DetailsService
+	service services.ReviewsService
 }
 
-func NewDetailsController(logger *zap.Logger, s services.DetailsService) *DetailsController {
-	return &DetailsController{
-		logger:  logger,
-		service: s,
-	}
+func NewReviewsController(logger *zap.Logger, service services.ReviewsService) *ReviewsController {
+	return &ReviewsController{logger: logger, service: service}
 }
 
-func (dc *DetailsController) Get(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+func (rc *ReviewsController) Query(c *gin.Context) {
+	id, err := strconv.ParseUint(c.Query("productID"), 10, 64)
 	if err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-	d, err := dc.service.Get(id)
+	reviews, err := rc.service.Query(id)
 	if err != nil {
-		dc.logger.Error("details controller get detail by id error", zap.Error(err))
+		rc.logger.Error("reviews controller query review by product_id error", zap.Error(err))
 		c.String(http.StatusInternalServerError, "%+v", err)
 		return
 	}
-	c.JSON(http.StatusOK, d)
+	c.JSON(http.StatusOK, reviews)
 }
