@@ -1,3 +1,5 @@
+//go:build wireinject
+
 /*
  * MIT License
  *
@@ -26,37 +28,22 @@
 package controllers
 
 import (
-	"net/http"
-	"strconv"
-
-	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
-	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
+	"github.com/Nicknamezz00/go-microservice/internal/app/ratings/repositories"
+	"github.com/Nicknamezz00/go-microservice/internal/app/ratings/services"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/config"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/database"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/log"
+	"github.com/google/wire"
 )
 
-type DetailsController struct {
-	logger  *zap.Logger
-	service services.DetailsService
-}
+var testProviderSet = wire.NewSet(
+	log.ProviderSet,
+	config.ProviderSet,
+	database.ProviderSet,
+	services.ProviderSet,
+	ProviderSet,
+)
 
-func NewDetailsController(logger *zap.Logger, s services.DetailsService) *DetailsController {
-	return &DetailsController{
-		logger:  logger,
-		service: s,
-	}
-}
-
-func (dc *DetailsController) Get(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
-	if err != nil {
-		_ = c.AbortWithError(http.StatusBadRequest, err)
-		return
-	}
-	d, err := dc.service.Get(id)
-	if err != nil {
-		dc.logger.Error("get detail by id error", zap.Error(err))
-		c.String(http.StatusInternalServerError, "%+v", err)
-		return
-	}
-	c.JSON(http.StatusOK, d)
+func CreateRatingsController(f string, r repositories.RatingsRepository) (*RatingsController, error) {
+	panic(wire.Build(testProviderSet))
 }

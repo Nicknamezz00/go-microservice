@@ -23,40 +23,41 @@
  *
  */
 
-package controllers
+package grpc
 
 import (
-	"net/http"
-	"strconv"
+	"context"
 
-	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
-	"github.com/gin-gonic/gin"
+	"github.com/Nicknamezz00/go-microservice/api/proto"
+	"github.com/Nicknamezz00/go-microservice/internal/app/ratings/services"
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-type DetailsController struct {
+type RatingsServer struct {
 	logger  *zap.Logger
-	service services.DetailsService
+	service services.RatingsService
 }
 
-func NewDetailsController(logger *zap.Logger, s services.DetailsService) *DetailsController {
-	return &DetailsController{
+func NewRatingsServer(logger *zap.Logger, service services.RatingsService) (*RatingsServer, error) {
+	return &RatingsServer{
 		logger:  logger,
-		service: s,
-	}
+		service: service,
+	}, nil
 }
 
-func (dc *DetailsController) Get(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+func (s *RatingsServer) Get(ctx context.Context, req *proto.GetRatingsRequest) (*proto.Rating, error) {
+	r, err := s.service.Get(req.ProductID)
 	if err != nil {
-		_ = c.AbortWithError(http.StatusBadRequest, err)
-		return
+		return nil, errors.Wrap(err, "ratings grpc server get rating error")
 	}
-	d, err := dc.service.Get(id)
-	if err != nil {
-		dc.logger.Error("get detail by id error", zap.Error(err))
-		c.String(http.StatusInternalServerError, "%+v", err)
-		return
+	updateTime := timestamppb.New(r.UpdatedTime)
+	resp := &proto.Rating{
+		Id:          uint64(r.ID),
+		ProductID:   r.ProductID,
+		Score:       r.Score,
+		UpdatedTime: updateTime,
 	}
-	c.JSON(http.StatusOK, d)
+	return resp, nil
 }
