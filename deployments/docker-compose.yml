@@ -50,13 +50,37 @@ services:
     volumes:
       - ../scripts/products.sql:/docker-entrypoint-initdb.d/products.sql
 
+  consul:
+    image: consul:1.4
+    environment:
+      - "CONSUL_BIND_INTERFACE=eth0"
+      - "CONSUL_ALLOW_PRIVILEGED_PORTS="
+      - "CONSUL_HTTP_ADDR=0.0.0.0"
+    command:
+      - consul
+      - agent
+      - -dev
+      - -ui
+      - -bind={{ GetInterfaceIP "eth0" }}
+      - -client={{ GetInterfaceIP "eth0" }}
+    ports:
+      - "8500:8500"
+    expose:
+      - 53/udp
+
   jaeger-collector:
     image: jaegertracing/jaeger-collector
-    command: [ "--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra", "--collector.zipkin.http-port=9411" ]
+    command:
+      - "--cassandra.keyspace=jaeger_v1_dc1"
+      - "--cassandra.servers=cassandra"
+      - "--collector.zipkin.host-port=9411"
+      - "--sampling.initial-sampling-probability=.5"
+      - "--sampling.target-samples-per-second=.01"
+    environment:
+      - SAMPLING_CONFIG_TYPE=adaptive
     ports:
-      - "14269"
+      - "14269:14269"
       - "14268:14268"
-      - "14267"
       - "14250"
       - "9411:9411"
     restart: on-failure
@@ -86,7 +110,7 @@ services:
       - jaeger-collector
 
   cassandra:
-    image: cassandra:3.9
+    image: cassandra:4.0
 
   cassandra-schema:
     image: jaegertracing/jaeger-cassandra-schema

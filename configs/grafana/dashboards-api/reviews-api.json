@@ -15,12 +15,7 @@
          {
             "collapse": true,
             "collapsed": true,
-            "gridPos": {
-               "h": 10,
-               "w": 24,
-               "x": 0,
-               "y": 0
-            },
+            "gridPos": { },
             "id": 2,
             "panels": [
                {
@@ -43,7 +38,7 @@
                   },
                   "gridPos": {
                      "h": 10,
-                     "w": 24,
+                     "w": 4,
                      "x": 0,
                      "y": 0
                   },
@@ -106,6 +101,342 @@
                      }
                   ],
                   "valueName": "current"
+               },
+               {
+                  "cacheTimeout": null,
+                  "colorBackground": false,
+                  "colorValue": false,
+                  "colors": [
+                     "#299c46",
+                     "rgba(237, 129, 40, 0.89)",
+                     "#d44a3a"
+                  ],
+                  "datasource": "Prometheus",
+                  "format": "none",
+                  "gauge": {
+                     "maxValue": 100,
+                     "minValue": 0,
+                     "show": false,
+                     "thresholdLabels": false,
+                     "thresholdMarkers": true
+                  },
+                  "gridPos": {
+                     "h": 10,
+                     "w": 4,
+                     "x": 4,
+                     "y": 0
+                  },
+                  "id": 4,
+                  "interval": null,
+                  "links": [ ],
+                  "mappingType": 1,
+                  "mappingTypes": [
+                     {
+                        "name": "value to text",
+                        "value": 1
+                     },
+                     {
+                        "name": "range to text",
+                        "value": 2
+                     }
+                  ],
+                  "maxDataPoints": 100,
+                  "nullPointMode": "connected",
+                  "nullText": null,
+                  "postfix": "",
+                  "postfixFontSize": "50%",
+                  "prefix": "",
+                  "prefixFontSize": "50%",
+                  "rangeMaps": [
+                     {
+                        "from": "null",
+                        "text": "N/A",
+                        "to": "null"
+                     }
+                  ],
+                  "span": 2,
+                  "sparkline": {
+                     "fillColor": "rgba(31, 118, 189, 0.18)",
+                     "full": false,
+                     "lineColor": "rgb(31, 120, 193)",
+                     "show": false
+                  },
+                  "tableColumn": "",
+                  "targets": [
+                     {
+                        "expr": "sum(rate(grpc_server_handled_total{app=\"reviews\",grpc_type=\"unary\"}[1m]))",
+                        "format": "time_series",
+                        "instant": true,
+                        "intervalFactor": 2,
+                        "legendFormat": "",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": "",
+                  "title": "Number of grpc request  per seconds",
+                  "transparent": true,
+                  "type": "singlestat",
+                  "valueFontSize": "80%",
+                  "valueMaps": [
+                     {
+                        "op": "=",
+                        "text": "N/A",
+                        "value": "null"
+                     }
+                  ],
+                  "valueName": "current"
+               },
+               {
+                  "cacheTimeout": null,
+                  "colorBackground": false,
+                  "colorValue": false,
+                  "colors": [
+                     "#299c46",
+                     "rgba(237, 129, 40, 0.89)",
+                     "#d44a3a"
+                  ],
+                  "datasource": "Prometheus",
+                  "format": "percent",
+                  "gauge": {
+                     "maxValue": 100,
+                     "minValue": 0,
+                     "show": false,
+                     "thresholdLabels": false,
+                     "thresholdMarkers": true
+                  },
+                  "gridPos": {
+                     "h": 10,
+                     "w": 4,
+                     "x": 8,
+                     "y": 0
+                  },
+                  "id": 5,
+                  "interval": null,
+                  "links": [ ],
+                  "mappingType": 1,
+                  "mappingTypes": [
+                     {
+                        "name": "value to text",
+                        "value": 1
+                     },
+                     {
+                        "name": "range to text",
+                        "value": 2
+                     }
+                  ],
+                  "maxDataPoints": 100,
+                  "nullPointMode": "connected",
+                  "nullText": null,
+                  "postfix": "",
+                  "postfixFontSize": "50%",
+                  "prefix": "",
+                  "prefixFontSize": "50%",
+                  "rangeMaps": [
+                     {
+                        "from": "null",
+                        "text": "N/A",
+                        "to": "null"
+                     }
+                  ],
+                  "span": 2,
+                  "sparkline": {
+                     "fillColor": "rgba(31, 118, 189, 0.18)",
+                     "full": false,
+                     "lineColor": "rgb(31, 120, 193)",
+                     "show": false
+                  },
+                  "tableColumn": "",
+                  "targets": [
+                     {
+                        "expr": "sum(rate(grpc_server_handled_total{app=\"reviews\",grpc_type=\"unary\",grpc_code!=\"OK\"}[1m])) /sum(rate(grpc_server_started_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) * 100.0",
+                        "format": "time_series",
+                        "instant": true,
+                        "intervalFactor": 2,
+                        "legendFormat": "",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": "",
+                  "title": "Percentage of grpc error request",
+                  "transparent": true,
+                  "type": "singlestat",
+                  "valueFontSize": "80%",
+                  "valueMaps": [
+                     {
+                        "op": "=",
+                        "text": "N/A",
+                        "value": "null"
+                     }
+                  ],
+                  "valueName": "current"
+               },
+               {
+                  "cacheTimeout": null,
+                  "colorBackground": false,
+                  "colorValue": false,
+                  "colors": [
+                     "#299c46",
+                     "rgba(237, 129, 40, 0.89)",
+                     "#d44a3a"
+                  ],
+                  "datasource": "Prometheus",
+                  "format": "none",
+                  "gauge": {
+                     "maxValue": 100,
+                     "minValue": 0,
+                     "show": false,
+                     "thresholdLabels": false,
+                     "thresholdMarkers": true
+                  },
+                  "gridPos": {
+                     "h": 10,
+                     "w": 4,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 6,
+                  "interval": null,
+                  "links": [ ],
+                  "mappingType": 1,
+                  "mappingTypes": [
+                     {
+                        "name": "value to text",
+                        "value": 1
+                     },
+                     {
+                        "name": "range to text",
+                        "value": 2
+                     }
+                  ],
+                  "maxDataPoints": 100,
+                  "nullPointMode": "connected",
+                  "nullText": null,
+                  "postfix": "",
+                  "postfixFontSize": "50%",
+                  "prefix": "",
+                  "prefixFontSize": "50%",
+                  "rangeMaps": [
+                     {
+                        "from": "null",
+                        "text": "N/A",
+                        "to": "null"
+                     }
+                  ],
+                  "span": 2,
+                  "sparkline": {
+                     "fillColor": "rgba(31, 118, 189, 0.18)",
+                     "full": false,
+                     "lineColor": "rgb(31, 120, 193)",
+                     "show": false
+                  },
+                  "tableColumn": "",
+                  "targets": [
+                     {
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m]))",
+                        "format": "time_series",
+                        "instant": true,
+                        "intervalFactor": 2,
+                        "legendFormat": "",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": "",
+                  "title": "Number of http request  per seconds",
+                  "transparent": true,
+                  "type": "singlestat",
+                  "valueFontSize": "80%",
+                  "valueMaps": [
+                     {
+                        "op": "=",
+                        "text": "N/A",
+                        "value": "null"
+                     }
+                  ],
+                  "valueName": "current"
+               },
+               {
+                  "cacheTimeout": null,
+                  "colorBackground": false,
+                  "colorValue": false,
+                  "colors": [
+                     "#299c46",
+                     "rgba(237, 129, 40, 0.89)",
+                     "#d44a3a"
+                  ],
+                  "datasource": "Prometheus",
+                  "format": "percent",
+                  "gauge": {
+                     "maxValue": 100,
+                     "minValue": 0,
+                     "show": false,
+                     "thresholdLabels": false,
+                     "thresholdMarkers": true
+                  },
+                  "gridPos": {
+                     "h": 10,
+                     "w": 4,
+                     "x": 16,
+                     "y": 0
+                  },
+                  "id": 7,
+                  "interval": null,
+                  "links": [ ],
+                  "mappingType": 1,
+                  "mappingTypes": [
+                     {
+                        "name": "value to text",
+                        "value": 1
+                     },
+                     {
+                        "name": "range to text",
+                        "value": 2
+                     }
+                  ],
+                  "maxDataPoints": 100,
+                  "nullPointMode": "connected",
+                  "nullText": null,
+                  "postfix": "",
+                  "postfixFontSize": "50%",
+                  "prefix": "",
+                  "prefixFontSize": "50%",
+                  "rangeMaps": [
+                     {
+                        "from": "null",
+                        "text": "N/A",
+                        "to": "null"
+                     }
+                  ],
+                  "span": 2,
+                  "sparkline": {
+                     "fillColor": "rgba(31, 118, 189, 0.18)",
+                     "full": false,
+                     "lineColor": "rgb(31, 120, 193)",
+                     "show": false
+                  },
+                  "tableColumn": "",
+                  "targets": [
+                     {
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\",code!=\"200\"}[1m])) /sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m])) * 100.0",
+                        "format": "time_series",
+                        "instant": true,
+                        "intervalFactor": 2,
+                        "legendFormat": "",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": "",
+                  "title": "Percentage of http error request",
+                  "transparent": true,
+                  "type": "singlestat",
+                  "valueFontSize": "80%",
+                  "valueMaps": [
+                     {
+                        "op": "=",
+                        "text": "N/A",
+                        "value": "null"
+                     }
+                  ],
+                  "valueName": "current"
                }
             ],
             "repeat": null,
@@ -120,7 +451,7 @@
             "collapse": true,
             "collapsed": true,
             "gridPos": { },
-            "id": 4,
+            "id": 8,
             "panels": [
                {
                   "aliasColors": { },
@@ -136,7 +467,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 5,
+                  "id": 9,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -145,6 +476,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -192,7 +524,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -200,7 +532,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -223,7 +555,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 6,
+                  "id": 10,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -232,6 +564,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -279,7 +612,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -287,7 +620,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -310,7 +643,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 7,
+                  "id": 11,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -319,6 +652,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -366,7 +700,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -374,7 +708,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -397,7 +731,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 8,
+                  "id": 12,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -406,6 +740,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -453,7 +788,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -461,7 +796,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -484,7 +819,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 9,
+                  "id": 13,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -493,6 +828,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -540,7 +876,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -548,7 +884,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -571,7 +907,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 10,
+                  "id": 14,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -580,6 +916,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -627,7 +964,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -635,7 +972,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -658,7 +995,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 11,
+                  "id": 15,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -667,6 +1004,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -714,7 +1052,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -722,7 +1060,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -745,7 +1083,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 12,
+                  "id": 16,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -754,6 +1092,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -801,7 +1140,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -809,7 +1148,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -832,7 +1171,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 13,
+                  "id": 17,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -841,6 +1180,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -888,7 +1228,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -896,7 +1236,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -919,7 +1259,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 14,
+                  "id": 18,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -928,6 +1268,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -975,7 +1316,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -983,7 +1324,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1006,7 +1347,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 15,
+                  "id": 19,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1015,6 +1356,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1062,7 +1404,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1070,7 +1412,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1093,7 +1435,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 16,
+                  "id": 20,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1102,6 +1444,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1149,7 +1492,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1157,7 +1500,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1180,7 +1523,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 17,
+                  "id": 21,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1189,6 +1532,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1236,7 +1580,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1244,7 +1588,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1267,7 +1611,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 18,
+                  "id": 22,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1276,6 +1620,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1323,7 +1668,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1331,7 +1676,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1354,7 +1699,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 19,
+                  "id": 23,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1363,6 +1708,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1410,7 +1756,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1418,7 +1764,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1441,7 +1787,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 20,
+                  "id": 24,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1450,6 +1796,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1497,7 +1844,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1505,7 +1852,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1528,7 +1875,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 21,
+                  "id": 25,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1537,6 +1884,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1584,7 +1932,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1592,7 +1940,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1615,7 +1963,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 22,
+                  "id": 26,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1624,6 +1972,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1671,7 +2020,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1679,7 +2028,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1702,7 +2051,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 23,
+                  "id": 27,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1711,6 +2060,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1758,7 +2108,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1766,7 +2116,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1789,7 +2139,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 24,
+                  "id": 28,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1798,6 +2148,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1845,7 +2196,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1853,7 +2204,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1876,7 +2227,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 25,
+                  "id": 29,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1885,6 +2236,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -1932,7 +2284,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1940,7 +2292,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -1963,7 +2315,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 26,
+                  "id": 30,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -1972,6 +2324,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -2019,7 +2372,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2027,7 +2380,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2050,7 +2403,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 27,
+                  "id": 31,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -2059,6 +2412,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -2106,7 +2460,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2114,7 +2468,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2137,7 +2491,7 @@
                      "x": 0,
                      "y": 0
                   },
-                  "id": 28,
+                  "id": 32,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -2146,6 +2500,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -2193,7 +2548,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2201,7 +2556,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2224,7 +2579,7 @@
                      "x": 12,
                      "y": 0
                   },
-                  "id": 29,
+                  "id": 33,
                   "legend": {
                      "alignAsTable": true,
                      "avg": false,
@@ -2233,6 +2588,7 @@
                      "min": false,
                      "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
                      "values": true
                   },
@@ -2280,7 +2636,7 @@
                   },
                   "yaxes": [
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2288,7 +2644,7 @@
                         "show": true
                      },
                      {
-                        "format": "none",
+                        "format": "short",
                         "label": null,
                         "logBase": 1,
                         "max": null,
@@ -2310,7 +2666,7 @@
             "collapse": true,
             "collapsed": true,
             "gridPos": { },
-            "id": 30,
+            "id": 34,
             "panels": [
                {
                   "aliasColors": { },
@@ -2318,39 +2674,30 @@
                   "dashLength": 10,
                   "dashes": false,
                   "datasource": null,
-                  "description": "Number of grpc server request group by grpc_code per seconds",
+                  "description": "Number of grpc server request per seconds  group by (grpc_code)",
                   "fill": 0,
-                  "format": "none",
                   "gridPos": {
                      "h": 10,
                      "w": 12,
                      "x": 0,
                      "y": 0
                   },
-                  "id": 31,
+                  "id": 35,
                   "legend": {
-                     "alignAsTable": false,
+                     "alignAsTable": true,
                      "avg": false,
-                     "current": false,
-                     "max": false,
+                     "current": true,
+                     "max": true,
                      "min": false,
-                     "rightSide": false,
+                     "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
-                     "values": false
+                     "values": true
                   },
-                  "legend_alignAsTable": true,
-                  "legend_avg": false,
-                  "legend_current": true,
-                  "legend_max": true,
-                  "legend_min": false,
-                  "legend_rightSide": true,
-                  "legend_total": false,
-                  "legend_values": true,
                   "lines": true,
                   "linewidth": 1,
                   "links": [ ],
-                  "min": 0,
                   "nullPointMode": "null",
                   "percentage": false,
                   "pointradius": 5,
@@ -2375,7 +2722,7 @@
                   "thresholds": [ ],
                   "timeFrom": null,
                   "timeShift": null,
-                  "title": "Grpc server QPS by grpc_code",
+                  "title": "Number of grpc server request  per seconds group by (grpc_code)",
                   "tooltip": {
                      "shared": true,
                      "sort": 0,
@@ -2396,7 +2743,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      },
                      {
@@ -2404,7 +2751,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      }
                   ]
@@ -2415,39 +2762,30 @@
                   "dashLength": 10,
                   "dashes": false,
                   "datasource": null,
-                  "description": "Number of grpc server request group by instance per seconds",
+                  "description": "Number of grpc server request per seconds  group by (instance)",
                   "fill": 0,
-                  "format": "none",
                   "gridPos": {
                      "h": 10,
                      "w": 12,
                      "x": 12,
                      "y": 0
                   },
-                  "id": 32,
+                  "id": 36,
                   "legend": {
-                     "alignAsTable": false,
+                     "alignAsTable": true,
                      "avg": false,
-                     "current": false,
-                     "max": false,
+                     "current": true,
+                     "max": true,
                      "min": false,
-                     "rightSide": false,
+                     "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
-                     "values": false
+                     "values": true
                   },
-                  "legend_alignAsTable": true,
-                  "legend_avg": false,
-                  "legend_current": true,
-                  "legend_max": true,
-                  "legend_min": false,
-                  "legend_rightSide": true,
-                  "legend_total": false,
-                  "legend_values": true,
                   "lines": true,
                   "linewidth": 1,
                   "links": [ ],
-                  "min": 0,
                   "nullPointMode": "null",
                   "percentage": false,
                   "pointradius": 5,
@@ -2472,7 +2810,7 @@
                   "thresholds": [ ],
                   "timeFrom": null,
                   "timeShift": null,
-                  "title": "Grpc server QPS by instance",
+                  "title": "Number of grpc server request  per seconds group by (instance)",
                   "tooltip": {
                      "shared": true,
                      "sort": 0,
@@ -2493,7 +2831,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      },
                      {
@@ -2501,7 +2839,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      }
                   ]
@@ -2512,39 +2850,30 @@
                   "dashLength": 10,
                   "dashes": false,
                   "datasource": null,
-                  "description": "Number of grpc server request group by grpc_service per seconds",
+                  "description": "Number of grpc server request per seconds  group by (grpc_service)",
                   "fill": 0,
-                  "format": "none",
                   "gridPos": {
                      "h": 10,
                      "w": 12,
                      "x": 0,
                      "y": 0
                   },
-                  "id": 33,
+                  "id": 37,
                   "legend": {
-                     "alignAsTable": false,
+                     "alignAsTable": true,
                      "avg": false,
-                     "current": false,
-                     "max": false,
+                     "current": true,
+                     "max": true,
                      "min": false,
-                     "rightSide": false,
+                     "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
-                     "values": false
+                     "values": true
                   },
-                  "legend_alignAsTable": true,
-                  "legend_avg": false,
-                  "legend_current": true,
-                  "legend_max": true,
-                  "legend_min": false,
-                  "legend_rightSide": true,
-                  "legend_total": false,
-                  "legend_values": true,
                   "lines": true,
                   "linewidth": 1,
                   "links": [ ],
-                  "min": 0,
                   "nullPointMode": "null",
                   "percentage": false,
                   "pointradius": 5,
@@ -2569,7 +2898,7 @@
                   "thresholds": [ ],
                   "timeFrom": null,
                   "timeShift": null,
-                  "title": "Grpc server QPS by grpc_service",
+                  "title": "Number of grpc server request  per seconds group by (grpc_service)",
                   "tooltip": {
                      "shared": true,
                      "sort": 0,
@@ -2590,7 +2919,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      },
                      {
@@ -2598,7 +2927,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      }
                   ]
@@ -2609,39 +2938,30 @@
                   "dashLength": 10,
                   "dashes": false,
                   "datasource": null,
-                  "description": "Number of grpc server request group by grpc_service,grpc_method per seconds",
+                  "description": "Number of grpc server request per seconds  group by (grpc_service,grpc_method)",
                   "fill": 0,
-                  "format": "none",
                   "gridPos": {
                      "h": 10,
                      "w": 12,
                      "x": 12,
                      "y": 0
                   },
-                  "id": 34,
+                  "id": 38,
                   "legend": {
-                     "alignAsTable": false,
+                     "alignAsTable": true,
                      "avg": false,
-                     "current": false,
-                     "max": false,
+                     "current": true,
+                     "max": true,
                      "min": false,
-                     "rightSide": false,
+                     "rightSide": true,
                      "show": true,
+                     "sideWidth": null,
                      "total": false,
-                     "values": false
+                     "values": true
                   },
-                  "legend_alignAsTable": true,
-                  "legend_avg": false,
-                  "legend_current": true,
-                  "legend_max": true,
-                  "legend_min": false,
-                  "legend_rightSide": true,
-                  "legend_total": false,
-                  "legend_values": true,
                   "lines": true,
                   "linewidth": 1,
                   "links": [ ],
-                  "min": 0,
                   "nullPointMode": "null",
                   "percentage": false,
                   "pointradius": 5,
@@ -2666,7 +2986,7 @@
                   "thresholds": [ ],
                   "timeFrom": null,
                   "timeShift": null,
-                  "title": "Grpc server QPS by grpc_service,grpc_method",
+                  "title": "Number of grpc server request  per seconds group by (grpc_service,grpc_method)",
                   "tooltip": {
                      "shared": true,
                      "sort": 0,
@@ -2687,7 +3007,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      },
                      {
@@ -2695,7 +3015,7 @@
                         "label": null,
                         "logBase": 1,
                         "max": null,
-                        "min": null,
+                        "min": 0,
                         "show": true
                      }
                   ]
@@ -2705,7 +3025,3516 @@
             "repeatIteration": null,
             "repeatRowId": null,
             "showTitle": true,
-            "title": "Grpc",
+            "title": "Grpc Server request rate",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 39,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of grpc server error request group by (grpc_service)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 40,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_server_handled_total{app=\"reviews\",grpc_type=\"unary\",grpc_code!=\"OK\"}[1m])) by (grpc_service)/sum(rate(grpc_server_started_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of grpc server error request group by (grpc_service)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of grpc server error request group by (grpc_service,grpc_method)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 41,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_server_handled_total{app=\"reviews\",grpc_type=\"unary\",grpc_code!=\"OK\"}[1m])) by (grpc_service,grpc_method)/sum(rate(grpc_server_started_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,grpc_method)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}.{{grpc_method}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of grpc server error request group by (grpc_service,grpc_method)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of grpc server error request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 42,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_server_handled_total{app=\"reviews\",grpc_type=\"unary\",grpc_code!=\"OK\"}[1m])) by (instance)/sum(rate(grpc_server_started_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (instance)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of grpc server error request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Grpc Server request error percentage",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 43,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (grpc_code)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 44,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_code,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (grpc_code)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 45,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (instance,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (grpc_service)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 46,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (grpc_service)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (grpc_service,grpc_method)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 47,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,grpc_method,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}.{{grpc_method}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (grpc_service,grpc_method)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Grpc server 99%-tile Latency of requests",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 48,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (grpc_code)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 49,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_code,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (grpc_code)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 50,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (instance,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (grpc_service)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 51,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (grpc_service)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc server request group by (grpc_service,grpc_method)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 52,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_server_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,grpc_method,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}.{{grpc_method}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc server request group by (grpc_service,grpc_method)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Grpc server 90%-tile Latency of requests",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 53,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of grpc client request per seconds  group by (grpc_code)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 54,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_client_handled_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_code)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of grpc client request  per seconds group by (grpc_code)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of grpc client request per seconds  group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 55,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_client_handled_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (instance)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of grpc client request  per seconds group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of grpc client request per seconds  group by (grpc_service)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 56,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_client_handled_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of grpc client request  per seconds group by (grpc_service)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of grpc client request per seconds  group by (grpc_service,grpc_method)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 57,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_client_handled_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,grpc_method)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}.{{grpc_method}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of grpc client request  per seconds group by (grpc_service,grpc_method)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Grpc client request rate",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 58,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of grpc client error request group by (grpc_service)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 59,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_client_handled_total{app=\"reviews\",grpc_type=\"unary\",grpc_code!=\"OK\"}[1m])) by (grpc_service)/sum(rate(grpc_client_started_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of grpc client error request group by (grpc_service)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of grpc client error request group by (grpc_service,grpc_method)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 60,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_client_handled_total{app=\"reviews\",grpc_type=\"unary\",grpc_code!=\"OK\"}[1m])) by (grpc_service,grpc_method)/sum(rate(grpc_client_started_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,grpc_method)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}.{{grpc_method}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of grpc client error request group by (grpc_service,grpc_method)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of grpc client error request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 61,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(grpc_client_handled_total{app=\"reviews\",grpc_type=\"unary\",grpc_code!=\"OK\"}[1m])) by (instance)/sum(rate(grpc_client_started_total{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (instance)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of grpc client error request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Grpc client request error percentage",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 62,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (grpc_code)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 63,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_code,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (grpc_code)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 64,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (instance,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (grpc_service)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 65,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (grpc_service)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (grpc_service,grpc_method)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 66,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,grpc_method,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}.{{grpc_method}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (grpc_service,grpc_method)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Grpc client 99%-tile Latency of requests",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 67,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (grpc_code)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 68,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_code,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (grpc_code)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 69,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (instance,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (grpc_service)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 70,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (grpc_service)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of grpc client request group by (grpc_service,grpc_method)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 71,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(grpc_client_handling_seconds_bucket{app=\"reviews\",grpc_type=\"unary\"}[1m])) by (grpc_service,grpc_method,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_service}}.{{grpc_method}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of grpc client request group by (grpc_service,grpc_method)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Grpc client 90%-tile Latency of requests",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 72,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of http[\"grpc_code\"] request group by (grpc_code) per seconds",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 73,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m])) by (grpc_code)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of http[\"grpc_code\"] request group by (grpc_code) per seconds",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of http[\"instance\"] request group by (grpc_code) per seconds",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 74,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m])) by (grpc_code)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of http[\"instance\"] request group by (grpc_code) per seconds",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of http[\"grpc_service\"] request group by (grpc_code) per seconds",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 75,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m])) by (grpc_code)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of http[\"grpc_service\"] request group by (grpc_code) per seconds",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Number of http[\"grpc_service\", \"grpc_method\"] request group by (grpc_code) per seconds",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 76,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m])) by (grpc_code)",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{grpc_code}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Number of http[\"grpc_service\", \"grpc_method\"] request group by (grpc_code) per seconds",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Http server request rate",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 77,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of http error request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 78,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\",status!=\"200\"}[1m])) by (instance)/sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m])) by (instance)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of http error request group by (instance) ",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Percentage of http error request group by (method,uri)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 79,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "sum(rate(http_server_requests_seconds_count{app=\"reviews\",status!=\"200\"}[1m])) by (method,uri)/sum(rate(http_server_requests_seconds_count{app=\"reviews\"}[1m])) by (method,uri)* 100.0",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{method}}.{{uri}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Percentage of http error request group by (method,uri) ",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "percent",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Http server request error percentage",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 80,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of http request group by (status)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 81,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(http_server_requests_seconds_bucket{app=\"reviews\"}[1m])) by (status,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{status}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of http request group by (status)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of http request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 82,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(http_server_requests_seconds_bucket{app=\"reviews\"}[1m])) by (instance,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of http request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of http request group by (method,uri)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 83,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.98999999999999999,sum(rate(http_server_requests_seconds_bucket{app=\"reviews\"}[1m])) by (method,uri,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{method}}.{{uri}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of http request group by (method,uri)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Http server 99%-tile Latency of requests",
+            "titleSize": "h6",
+            "type": "row"
+         },
+         {
+            "collapse": true,
+            "collapsed": true,
+            "gridPos": { },
+            "id": 84,
+            "panels": [
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of http request group by (status)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 85,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(http_server_requests_seconds_bucket{app=\"reviews\"}[1m])) by (status,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{status}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of http request group by (status)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of http request group by (instance)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 12,
+                     "y": 0
+                  },
+                  "id": 86,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(http_server_requests_seconds_bucket{app=\"reviews\"}[1m])) by (instance,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{instance}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of http request group by (instance)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               },
+               {
+                  "aliasColors": { },
+                  "bars": false,
+                  "dashLength": 10,
+                  "dashes": false,
+                  "datasource": null,
+                  "description": "Latency of http request group by (method,uri)",
+                  "fill": 0,
+                  "gridPos": {
+                     "h": 10,
+                     "w": 12,
+                     "x": 0,
+                     "y": 0
+                  },
+                  "id": 87,
+                  "legend": {
+                     "alignAsTable": true,
+                     "avg": false,
+                     "current": true,
+                     "max": true,
+                     "min": false,
+                     "rightSide": true,
+                     "show": true,
+                     "sideWidth": null,
+                     "total": false,
+                     "values": true
+                  },
+                  "lines": true,
+                  "linewidth": 1,
+                  "links": [ ],
+                  "nullPointMode": "null",
+                  "percentage": false,
+                  "pointradius": 5,
+                  "points": false,
+                  "renderer": "flot",
+                  "repeat": null,
+                  "seriesOverrides": [ ],
+                  "spaceLength": 10,
+                  "span": 6,
+                  "stack": false,
+                  "steppedLine": false,
+                  "targets": [
+                     {
+                        "datasource": "Prometheus",
+                        "expr": "1000 * histogram_quantile(0.90000000000000002,sum(rate(http_server_requests_seconds_bucket{app=\"reviews\"}[1m])) by (method,uri,le))",
+                        "format": "time_series",
+                        "intervalFactor": 2,
+                        "legendFormat": "{{method}}.{{uri}}",
+                        "refId": "A"
+                     }
+                  ],
+                  "thresholds": [ ],
+                  "timeFrom": null,
+                  "timeShift": null,
+                  "title": "Latency of http request group by (method,uri)",
+                  "tooltip": {
+                     "shared": true,
+                     "sort": 0,
+                     "value_type": "individual"
+                  },
+                  "transparent": true,
+                  "type": "graph",
+                  "xaxis": {
+                     "buckets": null,
+                     "mode": "time",
+                     "name": null,
+                     "show": true,
+                     "values": [ ]
+                  },
+                  "yaxes": [
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     },
+                     {
+                        "format": "ms",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": 0,
+                        "show": true
+                     }
+                  ]
+               }
+            ],
+            "repeat": null,
+            "repeatIteration": null,
+            "repeatRowId": null,
+            "showTitle": true,
+            "title": "Http server 90%-tile Latency of requests",
             "titleSize": "h6",
             "type": "row"
          }

@@ -1,5 +1,4 @@
 //go:build wireinject
-// +build wireinject
 
 /*
  * MIT License
@@ -29,8 +28,14 @@
 package main
 
 import (
+	"github.com/Nicknamezz00/go-microservice/internal/app/products"
+	"github.com/Nicknamezz00/go-microservice/internal/app/products/controllers"
+	grpcclient "github.com/Nicknamezz00/go-microservice/internal/app/products/grpc"
+	"github.com/Nicknamezz00/go-microservice/internal/app/products/services"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/config"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/consul"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/jaeger"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/log"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
@@ -41,6 +46,15 @@ var providerSet = wire.NewSet(
 	log.ProviderSet,
 	config.ProviderSet,
 	consul.ProviderSet,
+	jaeger.ProviderSet,
 	http.ProviderSet,
 	grpc.ProviderSet,
+	controllers.ProviderSet,
+	grpcclient.ProviderSet,
+	services.ProviderSet,
+	products.ProviderSet,
 )
+
+func CreateApp(f string) (*app.Application, error) {
+	panic(wire.Build(providerSet))
+}

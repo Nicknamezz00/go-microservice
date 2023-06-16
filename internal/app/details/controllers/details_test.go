@@ -26,7 +26,15 @@
 package controllers
 
 import (
+	"encoding/json"
 	"flag"
+	"fmt"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/models"
+	"github.com/Nicknamezz00/go-microservice/mocks"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
+	"io/ioutil"
+	"net/http/httptest"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -42,5 +50,42 @@ func setup() {
 func TestDetailsController_Get(t *testing.T) {
 	flag.Parse()
 	setup()
-
+	repo := new(mocks.DetailsRepository)
+	repo.On("Get", mock.AnythingOfType("uint64")).Return(func(id uint64) (d *models.Detail) {
+		return &models.Detail{ID: id}
+	}, func(id uint64) error {
+		return nil
+	})
+	c, err := CreateDetailsController(*configFile, repo)
+	if err != nil {
+		t.Fatalf("create detail controller error: %+v", err)
+	}
+	r.GET("/proto/:id", c.Get)
+	tests := []struct {
+		name     string
+		id       uint64
+		expected uint64
+	}{
+		{"1", 1, 1},
+		{"2", 2, 2},
+		{"3", 2, 3},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			uri := fmt.Sprintf("/proto/%d", test.id)
+			req := httptest.NewRequest("GET", uri, nil)
+			w := httptest.NewRecorder()
+			r.ServeHTTP(w, req)
+			resp := w.Result()
+			defer func() {
+				_ = resp.Body.Close()
+			}()
+			body, _ := ioutil.ReadAll(resp.Body)
+			d := new(models.Detail)
+			if err := json.Unmarshal(body, d); err != nil {
+				t.Errorf("unmarshal response body error: %v", err)
+			}
+			assert.Equal(t, test.expected, d.ID)
+		})
+	}
 }

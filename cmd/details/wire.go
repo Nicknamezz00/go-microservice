@@ -28,11 +28,37 @@
 package main
 
 import (
+	"github.com/Nicknamezz00/go-microservice/internal/app/details"
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/controllers"
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/grpc"
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/repositories"
+	"github.com/Nicknamezz00/go-microservice/internal/app/details/services"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/app"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/config"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/consul"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/database"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/jaeger"
 	"github.com/Nicknamezz00/go-microservice/internal/pkg/log"
+	grpcserver "github.com/Nicknamezz00/go-microservice/internal/pkg/transports/grpc"
+	"github.com/Nicknamezz00/go-microservice/internal/pkg/transports/http"
+	"github.com/google/wire"
 )
 
 var providerSet = wire.NewSet(
 	log.ProviderSet,
 	config.ProviderSet,
+	database.ProviderSet,
+	services.ProviderSet,
+	repositories.ProviderSet,
+	consul.ProviderSet,
+	jaeger.ProviderSet,
+	http.ProviderSet,
+	grpc.ProviderSet,
+	details.ProviderSet,
+	controllers.ProviderSet,
+	grpcserver.ProviderSet,
 )
+
+func CreateApp(f string) (*app.Application, error) {
+	panic(wire.Build(providerSet))
+}

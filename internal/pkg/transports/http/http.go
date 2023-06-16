@@ -120,7 +120,7 @@ func (s *Server) register() error {
 	id := fmt.Sprintf("%s[%s:%d]", s.app, s.host, s.port)
 	svcReg := &consulapi.AgentServiceRegistration{
 		ID:                id,
-		Name:              string(s.app),
+		Name:              s.app,
 		Tags:              []string{"http"},
 		Port:              s.port,
 		Address:           s.host,
